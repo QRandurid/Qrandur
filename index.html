@@ -127,35 +127,46 @@ footer{background:var(--ink);color:#fff;padding:46px 0 70px}.footerGrid{display:
   footer{padding-bottom:110px}
 }
 
-/* --- QRändur pack opening experience --- */
+/* --- QRändur pack opening experience v2: lid opens, cards rise slowly --- */
 .packExperience{background:#09111f;color:#fff}
 .packExperience .sectionAside{border-color:rgba(255,255,255,.28)}
 .packExperience .sectionIntro{color:#b9c7d8}
 .packArena{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:44px;align-items:center}
-.packShowcase{position:relative;min-height:620px;border:2px solid rgba(255,255,255,.75);overflow:hidden;background:radial-gradient(circle at 50% 30%,#153b70 0,#0d2342 34%,#09111f 72%);display:grid;place-items:center;padding:28px}
-.packShowcase:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:38px 38px;pointer-events:none}
-.packProduct{position:absolute;inset:26px;display:grid;place-items:center;transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1);z-index:2}
+.packShowcase{position:relative;min-height:650px;border:2px solid rgba(255,255,255,.75);overflow:hidden;background:radial-gradient(circle at 50% 38%,#173e72 0,#0d2342 36%,#09111f 74%);display:grid;place-items:center;padding:28px;perspective:1200px}
+.packShowcase:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:38px 38px;pointer-events:none}
+.packProduct{position:absolute;inset:26px;display:grid;place-items:center;transition:opacity .4s ease,transform .55s ease;z-index:1}
 .packProduct img{width:min(760px,100%);max-height:560px;object-fit:contain;filter:drop-shadow(0 26px 28px rgba(0,0,0,.48));border-radius:20px}
 .packStage{position:absolute;inset:0;display:grid;place-items:center;z-index:4;pointer-events:none}
-.foilPack{position:relative;width:min(285px,46%);aspect-ratio:.62;border-radius:18px 18px 26px 26px;overflow:hidden;box-shadow:0 28px 50px rgba(0,0,0,.55);transform:translateY(80px) scale(.88);opacity:0;transition:opacity .35s,transform .55s cubic-bezier(.2,.8,.2,1);background:#0c2a50;border:2px solid rgba(255,255,255,.72)}
-.foilPack img{position:absolute;height:100%;width:auto;max-width:none;left:0;top:0;transform:translateX(-2%);filter:saturate(1.08) contrast(1.02)}
-.foilPack:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.22) 40%,transparent 58%);transform:translateX(-120%);animation:foilShine 3.8s linear infinite}
-@keyframes foilShine{to{transform:translateX(140%)}}
-.packShowcase.ready .packProduct{opacity:.14;transform:scale(.92)}
-.packShowcase.ready .foilPack{opacity:1;transform:translateY(58px) scale(.95)}
-.packTear{position:absolute;left:50%;top:22%;width:44%;height:18px;transform:translateX(-50%) scaleX(0);background:#eef6ff;clip-path:polygon(0 45%,8% 25%,16% 58%,25% 32%,34% 60%,43% 35%,52% 58%,61% 28%,72% 62%,82% 34%,92% 58%,100% 40%,100% 100%,0 100%);z-index:9;opacity:0}
-.packShowcase.opening .packTear{animation:tearOpen .52s .22s forwards}
-@keyframes tearOpen{to{transform:translateX(-50%) scaleX(1);opacity:1}}
-.flyCard{position:absolute;width:min(330px,46%);aspect-ratio:1060/680;border-radius:16px;border:2px solid #fff;overflow:hidden;box-shadow:0 22px 44px rgba(0,0,0,.48);left:50%;top:50%;opacity:0;transform:translate(-50%,-10%) scale(.55) rotate(0deg);transition:none;background:#111}
-.flyCard img{width:100%;height:100%;object-fit:cover}
-.packShowcase.opening .flyCard.c1{animation:cardOut1 .8s .68s forwards cubic-bezier(.16,.84,.27,1)}
-.packShowcase.opening .flyCard.c2{animation:cardOut2 .82s .88s forwards cubic-bezier(.16,.84,.27,1)}
-.packShowcase.opening .flyCard.c3{animation:cardOut3 .84s 1.08s forwards cubic-bezier(.16,.84,.27,1)}
-.packShowcase.opening .foilPack{animation:packRip 1.6s .25s forwards cubic-bezier(.2,.8,.2,1)}
-@keyframes packRip{0%{transform:translateY(58px) scale(.95)}42%{transform:translateY(74px) scale(.95) rotate(-2deg)}100%{transform:translateY(160px) scale(.88) rotate(-6deg);opacity:.72}}
-@keyframes cardOut1{0%{opacity:0;transform:translate(-50%,8%) scale(.55)}45%{opacity:1}100%{opacity:1;transform:translate(-108%,-118%) scale(.92) rotate(-12deg)}}
-@keyframes cardOut2{0%{opacity:0;transform:translate(-50%,8%) scale(.55)}45%{opacity:1}100%{opacity:1;transform:translate(-50%,-138%) scale(.98) rotate(0deg)}}
-@keyframes cardOut3{0%{opacity:0;transform:translate(-50%,8%) scale(.55)}45%{opacity:1}100%{opacity:1;transform:translate(8%,-118%) scale(.92) rotate(12deg)}}
+.packShowcase.ready .packProduct{opacity:.08;transform:scale(.94)}
+
+.packRig{position:absolute;left:50%;top:50%;width:min(300px,48%);aspect-ratio:.62;transform:translate(-50%,-39%);transform-style:preserve-3d;z-index:6}
+.packBody{position:absolute;inset:0;border-radius:18px 18px 26px 26px;overflow:hidden;background:#0c2a50;border:2px solid rgba(255,255,255,.74);box-shadow:0 30px 56px rgba(0,0,0,.58);z-index:4}
+.packBody img{position:absolute;width:100%;height:100%;object-fit:cover;inset:0;filter:saturate(1.08) contrast(1.03)}
+.packBody:after{content:"";position:absolute;inset:0;background:linear-gradient(112deg,transparent 15%,rgba(255,255,255,.22) 36%,transparent 52%);transform:translateX(-130%);animation:foilSweep 4.2s linear infinite}
+@keyframes foilSweep{to{transform:translateX(140%)}}
+
+.packMouth{position:absolute;left:6%;right:6%;top:5.5%;height:18%;z-index:7;overflow:hidden;border-radius:12px 12px 5px 5px;transform-origin:50% 100%;transform-style:preserve-3d;transition:none;filter:drop-shadow(0 8px 8px rgba(0,0,0,.28))}
+.packMouth img{position:absolute;left:-6.4%;top:-31%;width:112.8%;height:555%;object-fit:cover;max-width:none}
+.packMouth:after{content:"";position:absolute;inset:auto 0 0;height:3px;background:rgba(255,255,255,.88);box-shadow:0 0 10px rgba(173,224,255,.85)}
+.packShowcase.opening .packMouth{animation:lidOpen 1.25s .2s forwards cubic-bezier(.22,.78,.22,1)}
+@keyframes lidOpen{0%{transform:rotateX(0deg) translateY(0)}38%{transform:rotateX(-36deg) translateY(-3px)}72%{transform:rotateX(-112deg) translateY(-18px)}100%{transform:rotateX(-148deg) translateY(-34px)}}
+
+.innerDark{position:absolute;left:9%;right:9%;top:10.5%;height:9%;background:#02060b;border-radius:50%;z-index:5;box-shadow:inset 0 0 15px #000,0 -1px 0 rgba(255,255,255,.25)}
+
+.riseCard{position:absolute;left:50%;top:50%;width:min(330px,47%);aspect-ratio:1060/680;border-radius:16px;border:2px solid rgba(255,255,255,.92);overflow:hidden;box-shadow:0 20px 42px rgba(0,0,0,.52);opacity:0;background:#111;z-index:3;transform:translate(-50%,36%) scale(.63)}
+.riseCard img{width:100%;height:100%;object-fit:cover}
+.packShowcase.opening .riseCard.c1{animation:slowCard1 1.8s 1.05s forwards cubic-bezier(.16,.75,.2,1)}
+.packShowcase.opening .riseCard.c2{animation:slowCard2 1.9s 1.55s forwards cubic-bezier(.16,.75,.2,1)}
+.packShowcase.opening .riseCard.c3{animation:slowCard3 2s 2.05s forwards cubic-bezier(.16,.75,.2,1)}
+.packShowcase.opening .riseCard.c4{animation:slowCard4 2.05s 2.55s forwards cubic-bezier(.16,.75,.2,1)}
+@keyframes slowCard1{0%{opacity:0;transform:translate(-50%,36%) scale(.63)}15%{opacity:1}62%{transform:translate(-50%,-40%) scale(.82) rotate(0)}100%{opacity:1;transform:translate(-112%,-108%) scale(.9) rotate(-13deg)}}
+@keyframes slowCard2{0%{opacity:0;transform:translate(-50%,34%) scale(.63)}15%{opacity:1}62%{transform:translate(-50%,-48%) scale(.84)}100%{opacity:1;transform:translate(-70%,-128%) scale(.94) rotate(-5deg)}}
+@keyframes slowCard3{0%{opacity:0;transform:translate(-50%,34%) scale(.63)}15%{opacity:1}62%{transform:translate(-50%,-48%) scale(.84)}100%{opacity:1;transform:translate(-30%,-128%) scale(.94) rotate(5deg)}}
+@keyframes slowCard4{0%{opacity:0;transform:translate(-50%,34%) scale(.63)}15%{opacity:1}62%{transform:translate(-50%,-40%) scale(.82)}100%{opacity:1;transform:translate(12%,-108%) scale(.9) rotate(13deg)}}
+
+.packShowcase.opening .packRig{animation:packSettle 4.8s .15s forwards ease-in-out}
+@keyframes packSettle{0%,28%{transform:translate(-50%,-39%) rotate(0)}55%{transform:translate(-50%,-36%) rotate(-1deg)}100%{transform:translate(-50%,-31%) rotate(1deg)}}
+
 .packInfo{border:1px solid #3b4a61;padding:30px;background:rgba(255,255,255,.03)}
 .packInfo .mini{font-size:12px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;color:#8ee7ff}
 .packInfo h3{font-size:clamp(38px,4.2vw,62px);line-height:.93;letter-spacing:-.055em;text-transform:uppercase;margin:12px 0 18px}
@@ -168,9 +179,9 @@ footer{background:var(--ink);color:#fff;padding:46px 0 70px}.footerGrid{display:
 .packOpenBtn:disabled{opacity:.7;cursor:default;transform:none}
 .packReset{margin-top:10px;width:100%;border:1px solid #5a687c;background:transparent;color:#fff;padding:13px 16px;font-weight:900;text-transform:uppercase;cursor:pointer}
 .packCaption{margin-top:12px;font-size:12px;color:#8292a8}
-@media(max-width:900px){.packArena{grid-template-columns:1fr}.packShowcase{min-height:520px}.packInfo{order:-1}.packFacts{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:560px){.packShowcase{min-height:430px;padding:12px}.foilPack{width:46%}.flyCard{width:52%}.packInfo{padding:22px}.packFacts{gap:5px}.packFact{padding:10px 5px}.packFact strong{font-size:16px}.packFact span{font-size:9px}@keyframes cardOut1{0%{opacity:0;transform:translate(-50%,10%) scale(.5)}45%{opacity:1}100%{opacity:1;transform:translate(-86%,-112%) scale(.78) rotate(-10deg)}}@keyframes cardOut2{0%{opacity:0;transform:translate(-50%,10%) scale(.5)}45%{opacity:1}100%{opacity:1;transform:translate(-50%,-128%) scale(.84)}}@keyframes cardOut3{0%{opacity:0;transform:translate(-50%,10%) scale(.5)}45%{opacity:1}100%{opacity:1;transform:translate(-14%,-112%) scale(.78) rotate(10deg)}}}
-@media(prefers-reduced-motion:reduce){.packProduct,.foilPack,.flyCard,.packTear{animation:none!important;transition:none!important}.packShowcase.opening .flyCard{opacity:1}.packShowcase.opening .flyCard.c1{transform:translate(-102%,-112%) scale(.9) rotate(-10deg)}.packShowcase.opening .flyCard.c2{transform:translate(-50%,-132%) scale(.95)}.packShowcase.opening .flyCard.c3{transform:translate(2%,-112%) scale(.9) rotate(10deg)}}
+@media(max-width:900px){.packArena{grid-template-columns:1fr}.packShowcase{min-height:560px}.packInfo{order:-1}.packFacts{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.packShowcase{min-height:470px;padding:12px}.packRig{width:52%;transform:translate(-50%,-34%)}.riseCard{width:54%}.packInfo{padding:22px}.packFacts{gap:5px}.packFact{padding:10px 5px}.packFact strong{font-size:16px}.packFact span{font-size:9px}@keyframes slowCard1{0%{opacity:0;transform:translate(-50%,35%) scale(.58)}15%{opacity:1}100%{opacity:1;transform:translate(-89%,-103%) scale(.76) rotate(-11deg)}}@keyframes slowCard2{0%{opacity:0;transform:translate(-50%,35%) scale(.58)}15%{opacity:1}100%{opacity:1;transform:translate(-63%,-120%) scale(.8) rotate(-4deg)}}@keyframes slowCard3{0%{opacity:0;transform:translate(-50%,35%) scale(.58)}15%{opacity:1}100%{opacity:1;transform:translate(-37%,-120%) scale(.8) rotate(4deg)}}@keyframes slowCard4{0%{opacity:0;transform:translate(-50%,35%) scale(.58)}15%{opacity:1}100%{opacity:1;transform:translate(-11%,-103%) scale(.76) rotate(11deg)}}}
+@media(prefers-reduced-motion:reduce){.packMouth,.riseCard,.packRig{animation:none!important}.packShowcase.opening .packMouth{transform:rotateX(-148deg) translateY(-34px)}.packShowcase.opening .riseCard{opacity:1}.packShowcase.opening .riseCard.c1{transform:translate(-112%,-108%) scale(.9) rotate(-13deg)}.packShowcase.opening .riseCard.c2{transform:translate(-70%,-128%) scale(.94) rotate(-5deg)}.packShowcase.opening .riseCard.c3{transform:translate(-30%,-128%) scale(.94) rotate(5deg)}.packShowcase.opening .riseCard.c4{transform:translate(12%,-108%) scale(.9) rotate(13deg)}}
 
 </style>
 </head>
@@ -235,11 +246,15 @@ footer{background:var(--ink);color:#fff;padding:46px 0 70px}.footerGrid{display:
         <div class="packShowcase" id="packShowcase" aria-live="polite">
           <div class="packProduct"><img src="pack.png" alt="QRänduri kaardipaki tootenäidis"></div>
           <div class="packStage">
-            <div class="foilPack" aria-hidden="true"><img src="pack.png" alt=""></div>
-            <div class="packTear" aria-hidden="true"></div>
-            <div class="flyCard c1"><img src="back.jpg" alt="QRänduri kaardi tagakülg"></div>
-            <div class="flyCard c2"><img src="front.jpg" alt="QRänduri kaardi esikülg"></div>
-            <div class="flyCard c3"><img src="back.jpg" alt="QRänduri kaardi tagakülg"></div>
+            <div class="packRig" aria-hidden="true">
+              <div class="innerDark"></div>
+              <div class="packBody"><img src="pack.png" alt=""></div>
+              <div class="packMouth"><img src="pack.png" alt=""></div>
+            </div>
+            <div class="riseCard c1"><img src="back.jpg" alt="QRänduri kaardi tagakülg"></div>
+            <div class="riseCard c2"><img src="front.jpg" alt="QRänduri kaardi esikülg"></div>
+            <div class="riseCard c3"><img src="back.jpg" alt="QRänduri kaardi tagakülg"></div>
+            <div class="riseCard c4"><img src="front.jpg" alt="QRänduri kaardi esikülg"></div>
           </div>
         </div>
         <div class="packInfo">
@@ -340,12 +355,12 @@ function openPack(){
   packShowcase.classList.add('opening');
   packOpenBtn.disabled=true;
   packOpenBtn.textContent='Pakk avaneb…';
-  packStatus.textContent='Pakk avaneb ja kaardid tulevad välja…';
+  packStatus.textContent='Ülemine serv avaneb. Kaardid tulevad aeglaselt pakist välja…';
   packTimer=setTimeout(()=>{
     packOpenBtn.textContent='Pakk avatud';
     packResetBtn.hidden=false;
     packStatus.textContent='Kaardid on väljas. Ava uuesti, et animatsiooni korrata.';
-  },2100);
+  },5000);
 }
 packOpenBtn.addEventListener('click',openPack);
 packResetBtn.addEventListener('click',()=>{preparePack();setTimeout(openPack,220)});
