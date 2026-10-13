@@ -1,215 +1,356 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="et">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
-<title>QRändurid — Tallinna avastusmäng</title>
-<meta name="description" content="QRändurid on Tallinna avastusmäng, kus füüsilised kaardid, QR-koodid ja päris asukohad muutuvad mänguliseks seikluseks.">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f4ec">
+<title>QRändur — linn on mängulaud</title>
+<meta name="description" content="QRändur ühendab füüsilised kaardid, QR-koodi ja GPS-i päris linnaseikluseks. Skanni kaart, mine kohale ja kogu XP-d.">
 <style>
 :root{
-  --ink:#0b1630;
-  --muted:#667085;
-  --line:#e7eaf0;
-  --paper:#ffffff;
-  --soft:#f6f8fc;
-  --blue:#275efe;
-  --blue2:#4f7cff;
-  --cyan:#31c8ff;
-  --lime:#dff73f;
-  --coral:#ff6d5a;
-  --violet:#7c5cff;
-  --shadow:0 24px 70px rgba(28,44,88,.12);
+  --paper:#f6f4ec;
+  --ink:#0d1b2a;
+  --blue:#315cff;
+  --mint:#bfffd6;
+  --acid:#d9ff57;
+  --orange:#ff8b42;
+  --sky:#8ee7ff;
+  --line:#cfd3d7;
+  --white:#fff;
+  --muted:#5e6875;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-button,input,textarea,select{font:inherit}
+button,input,select,textarea{font:inherit}
 img{display:block;max-width:100%}
-.container{width:min(1160px,calc(100% - 32px));margin:auto}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(231,234,240,.8)}
-.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.brand{font-weight:950;font-size:23px;letter-spacing:-1px;display:flex;align-items:center;gap:10px}
-.brandmark{width:34px;height:34px;border-radius:11px;background:conic-gradient(from 220deg,var(--blue),var(--cyan),var(--lime),var(--blue));box-shadow:0 8px 22px rgba(39,94,254,.25);position:relative}
-.brandmark:after{content:"QR";position:absolute;inset:0;display:grid;place-items:center;font-size:11px;font-weight:950;color:#07142e}
-.navlinks{display:flex;gap:24px;color:#475467;font-size:14px;font-weight:800}
-.navlinks a:hover{color:var(--blue)}
-.navcta,.btn{border:0;border-radius:14px;font-weight:900;cursor:pointer;transition:.22s ease}
-.navcta{padding:12px 17px;background:var(--ink);color:#fff}
-.navcta:hover,.btn:hover{transform:translateY(-2px)}
-.hero{position:relative;overflow:hidden;padding:74px 0 56px;background:
- radial-gradient(circle at 15% 20%,rgba(49,200,255,.18),transparent 33%),
- radial-gradient(circle at 88% 16%,rgba(223,247,63,.27),transparent 24%),
- linear-gradient(180deg,#fff 0%,#f9fbff 100%)}
-.hero:before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;border:1px solid rgba(39,94,254,.12);right:-260px;top:-170px;box-shadow:0 0 0 70px rgba(39,94,254,.025),0 0 0 140px rgba(39,94,254,.02)}
-.heroGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative;z-index:1}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 30px rgba(38,51,82,.08);font-weight:900;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#344054}
-.eyedot{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px rgba(223,247,63,.25)}
-h1{font-size:clamp(46px,7vw,82px);line-height:.98;letter-spacing:-4px;margin:20px 0 22px;max-width:760px}
-.gradientText{background:linear-gradient(100deg,var(--blue) 5%,var(--violet) 50%,#00a6c7 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{font-size:19px;line-height:1.65;color:#5d677b;max-width:650px;margin:0 0 28px}
+::selection{background:var(--acid);color:var(--ink)}
+.shell{width:min(1320px,calc(100% - 32px));margin:auto}
+.topnote{background:var(--ink);color:#fff;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;overflow:hidden;white-space:nowrap}
+.marquee{display:flex;width:max-content;animation:marquee 23s linear infinite}
+.marquee span{padding:10px 24px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+header{position:sticky;top:0;z-index:30;background:rgba(246,244,236,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--ink)}
+.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.logo{display:flex;align-items:center;gap:11px;font-size:27px;font-weight:1000;letter-spacing:-1.5px}
+.logoMark{width:42px;height:42px;border:2px solid var(--ink);border-radius:12px;background:var(--blue);position:relative;box-shadow:4px 4px 0 var(--ink)}
+.logoMark:before{content:"QR";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:1000}
+.links{display:flex;align-items:center;gap:28px;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.links a{position:relative}
+.links a:after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:.2s}
+.links a:hover:after{transform:scaleX(1)}
+.navBtn{border:2px solid var(--ink);background:var(--acid);padding:12px 18px;font-weight:1000;text-transform:uppercase;box-shadow:4px 4px 0 var(--ink);cursor:pointer}
+.navBtn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.hero{min-height:calc(100svh - 110px);display:grid;grid-template-columns:1.1fr .9fr;border-bottom:1px solid var(--ink)}
+.heroCopy{padding:70px max(32px,calc((100vw - 1320px)/2)) 58px 16px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--ink)}
+.heroVisual{position:relative;min-height:620px;overflow:hidden;background:var(--blue)}
+.eyebrow{font-size:12px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow:before{content:"";width:10px;height:10px;background:var(--orange);border-radius:50%;border:1px solid var(--ink)}
+h1{font-size:clamp(58px,8vw,126px);line-height:.84;letter-spacing:-.075em;margin:0 0 30px;max-width:790px;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--blue);display:block}
+.heroLead{max-width:650px;font-size:20px;line-height:1.55;margin:0 0 30px;color:#334253}
 .heroActions{display:flex;gap:12px;flex-wrap:wrap}
-.btn{padding:15px 19px;background:var(--blue);color:#fff;box-shadow:0 12px 30px rgba(39,94,254,.24)}
-.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
-.micro{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;color:#667085;font-size:13px;font-weight:700}
-.micro span{display:flex;align-items:center;gap:7px}.check{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:#eaf8ef;color:#178447;font-size:11px;font-weight:950}
-.productStage{position:relative;min-height:540px;display:grid;place-items:center}
-.blob{position:absolute;width:430px;height:430px;border-radius:42% 58% 68% 32% / 40% 33% 67% 60%;background:linear-gradient(135deg,var(--blue),var(--cyan));transform:rotate(-7deg);filter:saturate(1.05);box-shadow:0 40px 90px rgba(39,94,254,.25)}
-.cardShell{position:relative;width:min(350px,78vw);z-index:2;filter:drop-shadow(0 28px 35px rgba(17,34,74,.25))}
-.cardShell img{width:100%;border-radius:24px;transition:transform .2s ease,opacity .2s ease}
-.cardShell.switching img{transform:rotateY(90deg) scale(.96);opacity:.25}
-.floatTag{position:absolute;padding:11px 14px;border-radius:14px;background:#fff;border:1px solid rgba(255,255,255,.7);box-shadow:0 16px 35px rgba(22,34,70,.15);font-size:12px;font-weight:900;z-index:3}
-.floatTag.a{left:0;top:92px;transform:rotate(-6deg)}
-.floatTag.b{right:2px;bottom:100px;transform:rotate(5deg)}
-.viewerControls{position:absolute;z-index:4;bottom:4px;left:50%;transform:translateX(-50%);display:flex;padding:6px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 28px rgba(25,38,74,.12);gap:5px}
-.viewerControls button{border:0;background:transparent;padding:10px 13px;border-radius:11px;font-weight:900;color:#667085;cursor:pointer}
-.viewerControls button.active{background:var(--ink);color:#fff}
-.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
-.stripGrid{display:grid;grid-template-columns:repeat(4,1fr)}
-.stat{padding:22px 18px;text-align:center;border-right:1px solid var(--line)}
-.stat:last-child{border-right:0}.stat strong{display:block;font-size:26px;letter-spacing:-1px}.stat span{font-size:12px;color:#667085;font-weight:800}
-section{padding:92px 0}
-.sectionHead{max-width:760px;margin-bottom:38px}.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:950;color:var(--blue)}
-.sectionHead h2{font-size:clamp(34px,5vw,58px);letter-spacing:-2.5px;line-height:1.02;margin:10px 0 14px}.sectionHead p{font-size:17px;line-height:1.65;color:#667085;margin:0}
-.how{background:var(--ink);color:#fff;position:relative;overflow:hidden}
-.how:before{content:"";position:absolute;inset:auto -180px -250px auto;width:600px;height:600px;background:radial-gradient(circle,rgba(49,200,255,.22),transparent 65%)}
-.how .sectionHead p{color:#bac4d4}.how .kicker{color:var(--lime)}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;z-index:1}
-.step{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:24px;min-height:230px}
-.stepNum{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--lime);color:#0d1933;font-weight:950;margin-bottom:30px;box-shadow:0 10px 25px rgba(223,247,63,.18)}
-.step h3{font-size:21px;margin:0 0 10px}.step p{color:#bdc6d6;line-height:1.6;margin:0;font-size:14px}
-.features{background:#f8faff}
-.featureGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
-.featureBig,.featureSmall{border-radius:28px;border:1px solid #e8ebf2;background:#fff;box-shadow:0 16px 45px rgba(36,52,88,.06)}
-.featureBig{padding:34px;min-height:410px;background:linear-gradient(145deg,#fff 0%,#f5f8ff 100%);position:relative;overflow:hidden}
-.featureBig:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:linear-gradient(135deg,rgba(39,94,254,.2),rgba(49,200,255,.06));right:-80px;bottom:-90px}
-.featureSmall{padding:25px;min-height:194px}.stack{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.iconbox{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:#edf2ff;color:var(--blue);font-size:24px;margin-bottom:22px}.featureBig h3,.featureSmall h3{font-size:24px;letter-spacing:-.7px;margin:0 0 10px}.featureBig p,.featureSmall p{margin:0;color:#667085;line-height:1.65}
-.showcase{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
-.previewPanel{background:linear-gradient(160deg,#eff6ff,#f7fbff 55%,#f4ffe5);border:1px solid #e5e9f2;border-radius:34px;padding:28px;min-height:560px;display:grid;place-items:center;position:relative;overflow:hidden}
-.previewPanel:before{content:"";position:absolute;width:330px;height:330px;border-radius:50%;background:rgba(39,94,254,.09);top:-150px;left:-100px}
-.previewCard{width:min(330px,78%);position:relative;z-index:1}.previewCard img{width:100%;border-radius:23px;box-shadow:0 32px 70px rgba(27,44,84,.23)}
-.previewInfo h3{font-size:40px;letter-spacing:-1.5px;margin:0 0 14px}.previewInfo p{font-size:17px;color:#667085;line-height:1.7}
-.bullets{display:grid;gap:12px;margin-top:22px}.bullet{display:flex;align-items:flex-start;gap:12px;font-weight:800;color:#344054}.bullet i{font-style:normal;width:28px;height:28px;border-radius:9px;background:#eef8d0;display:grid;place-items:center;color:#486100;flex:0 0 auto}
-.pricing{background:#fff}
-.priceGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.priceCard{border:1px solid var(--line);border-radius:26px;padding:26px;background:#fff;position:relative;transition:.2s;cursor:pointer}.priceCard:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:#d9e0ef}.priceCard.popular{border:2px solid var(--blue);background:linear-gradient(180deg,#fff,#f6f9ff)}
-.badge{position:absolute;top:16px;right:16px;border-radius:999px;padding:7px 10px;background:var(--lime);font-size:10px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}.qty{font-size:13px;color:#667085;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.price{font-size:43px;font-weight:950;letter-spacing:-2px;margin:8px 0}.unit{font-size:13px;color:#667085;font-weight:800}.priceCard ul{padding:0;list-style:none;margin:20px 0 0;display:grid;gap:10px;color:#475467;font-size:14px}.priceCard li:before{content:"✓";font-weight:950;color:#16a34a;margin-right:8px}
-.orderWrap{background:linear-gradient(135deg,#132245,#0c1732);border-radius:34px;padding:42px;color:#fff;display:grid;grid-template-columns:.8fr 1.2fr;gap:36px;box-shadow:0 28px 70px rgba(12,23,50,.18)}
-.orderWrap p{color:#b8c3d5;line-height:1.65}.orderSummary{padding:18px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);margin-top:18px}.orderSummary strong{font-size:34px;display:block;margin-top:5px}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:900;color:#d8e0ee}.field input,.field textarea,.field select{width:100%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:14px;outline:none}.field input::placeholder,.field textarea::placeholder{color:#8490a5}.field textarea{min-height:108px;resize:vertical}.submit{width:100%;margin-top:12px;background:var(--lime);color:#14203b;box-shadow:none}.formNote{font-size:12px;color:#97a4b7;margin-top:10px}
-.faq{background:#f8faff}.faqList{display:grid;gap:12px}.faqItem{border:1px solid #e7eaf0;border-radius:18px;background:#fff;overflow:hidden}.faqQ{width:100%;border:0;background:#fff;text-align:left;padding:19px 20px;font-weight:900;color:var(--ink);display:flex;justify-content:space-between;gap:16px;cursor:pointer}.faqA{display:none;padding:0 20px 20px;color:#667085;line-height:1.65}.faqItem.open .faqA{display:block}.faqItem.open .faqQ span:last-child{transform:rotate(45deg)}
-footer{padding:34px 0 50px;border-top:1px solid var(--line);color:#667085}.footerGrid{display:flex;justify-content:space-between;gap:24px;align-items:center;flex-wrap:wrap}.footerLinks{display:flex;gap:18px;font-size:13px;font-weight:800}
-.mobileBuy{display:none}
-@media(max-width:900px){
- .navlinks{display:none}.hero{padding-top:45px}.heroGrid,.featureGrid,.showcase,.orderWrap{grid-template-columns:1fr}.heroGrid{gap:25px}.productStage{min-height:470px}.blob{width:360px;height:360px}.steps{grid-template-columns:1fr 1fr}.priceGrid{grid-template-columns:1fr 1fr}.showcase{gap:24px}.previewPanel{min-height:480px}.orderWrap{padding:30px}
+.cta{border:2px solid var(--ink);padding:15px 20px;background:var(--ink);color:#fff;font-weight:1000;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;box-shadow:5px 5px 0 var(--blue);transition:.15s}
+.cta.alt{background:transparent;color:var(--ink);box-shadow:none}
+.cta:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--blue)}
+.cta.alt:hover{box-shadow:3px 3px 0 var(--ink)}
+.heroMeta{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
+.heroMeta div{display:grid;gap:4px}
+.heroMeta strong{font-size:22px}.heroMeta span{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.heroPattern{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px);background-size:42px 42px}
+.route{position:absolute;inset:0;pointer-events:none}
+.route svg{width:100%;height:100%}
+.heroCardStack{position:absolute;inset:0;display:grid;place-items:center;padding:58px}
+.heroCard{width:min(520px,88%);aspect-ratio:1060/680;position:relative;z-index:3;filter:drop-shadow(17px 20px 0 rgba(8,19,34,.9));transition:transform .35s ease}
+.heroCard:hover{transform:rotate(-2deg) scale(1.01)}
+.heroCard img{width:100%;height:100%;object-fit:cover;border:3px solid var(--ink);border-radius:20px}
+.sticker{position:absolute;z-index:4;border:2px solid var(--ink);background:var(--acid);padding:12px 15px;font-weight:1000;text-transform:uppercase;box-shadow:4px 4px 0 var(--ink)}
+.sticker.one{top:9%;right:5%;transform:rotate(7deg)}
+.sticker.two{bottom:8%;left:4%;background:var(--mint);transform:rotate(-5deg)}
+.heroSideControls{position:absolute;bottom:28px;right:28px;z-index:6;display:flex;border:2px solid var(--ink);background:var(--paper)}
+.heroSideControls button{border:0;background:transparent;padding:11px 14px;font-weight:1000;text-transform:uppercase;cursor:pointer}
+.heroSideControls button.active{background:var(--ink);color:#fff}
+.ticker{border-bottom:1px solid var(--ink);background:var(--acid);overflow:hidden;white-space:nowrap}
+.tickerTrack{display:flex;width:max-content;animation:marquee 28s linear infinite;font-size:18px;font-weight:1000;text-transform:uppercase;letter-spacing:.03em}
+.tickerTrack span{padding:17px 28px}
+.section{border-bottom:1px solid var(--ink)}
+.sectionGrid{display:grid;grid-template-columns:260px 1fr}
+.sectionAside{padding:70px 24px 70px 0;border-right:1px solid var(--ink)}
+.sectionNo{font-size:13px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;position:sticky;top:110px}
+.sectionBody{padding:70px 0 70px 58px}
+.sectionTitle{font-size:clamp(44px,6vw,88px);line-height:.91;letter-spacing:-.055em;text-transform:uppercase;margin:0 0 20px;max-width:1000px}
+.sectionIntro{font-size:18px;line-height:1.6;color:#4c5866;max-width:780px;margin:0 0 40px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--ink)}
+.step{min-height:340px;padding:26px;border-right:2px solid var(--ink);display:flex;flex-direction:column;justify-content:space-between;transition:.2s;background:var(--white)}
+.step:last-child{border-right:0}.step:nth-child(2){background:var(--sky)}.step:nth-child(3){background:var(--mint)}
+.step:hover{transform:translateY(-8px);box-shadow:0 8px 0 var(--ink)}
+.stepNum{font-size:13px;font-weight:1000}.stepIcon{font-size:48px;margin:30px 0}.step h3{font-size:34px;line-height:.95;text-transform:uppercase;letter-spacing:-.04em;margin:0 0 12px}.step p{margin:0;line-height:1.5;color:#43505e}
+.trySection{background:var(--ink);color:#fff}
+.trySection .sectionAside{border-color:#fff}.trySection .sectionTitle{color:#fff}.trySection .sectionIntro{color:#aeb9c7}
+.lab{display:grid;grid-template-columns:1fr .75fr;gap:42px;align-items:center}
+.cardStage{position:relative;min-height:520px;background:var(--blue);border:2px solid #fff;display:grid;place-items:center;overflow:hidden}
+.cardStage:before,.cardStage:after{content:"";position:absolute;border:2px solid rgba(255,255,255,.5);border-radius:50%}
+.cardStage:before{width:410px;height:410px;left:-160px;top:-160px}.cardStage:after{width:250px;height:250px;right:-90px;bottom:-90px}
+.demoCard{width:min(560px,86%);aspect-ratio:1060/680;position:relative;z-index:2;transition:.18s ease;filter:drop-shadow(14px 16px 0 rgba(0,0,0,.45))}
+.demoCard.switching{transform:scaleX(.06);opacity:.2}
+.demoCard img{width:100%;height:100%;object-fit:cover;border-radius:18px;border:3px solid #fff}
+.labPanel{border:1px solid #566170;padding:26px}
+.labPanel h3{font-size:38px;line-height:.95;text-transform:uppercase;letter-spacing:-.04em;margin:0 0 20px}.labPanel p{color:#b9c2ce;line-height:1.6}
+.toggle{display:grid;grid-template-columns:1fr 1fr;border:1px solid #667180;margin-top:24px}.toggle button{padding:14px;border:0;background:transparent;color:#fff;font-weight:1000;text-transform:uppercase;cursor:pointer}.toggle button.active{background:var(--acid);color:var(--ink)}
+.routeStory{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.routeItem{padding:26px 22px;border-right:2px solid var(--ink);min-height:250px;position:relative}.routeItem:last-child{border-right:0}.routeItem:before{content:"";width:14px;height:14px;background:var(--orange);border:2px solid var(--ink);border-radius:50%;position:absolute;top:-9px;left:24px}.routeItem:nth-child(2):before{background:var(--sky)}.routeItem:nth-child(3):before{background:var(--acid)}.routeItem:nth-child(4):before{background:var(--mint)}
+.routeItem small{font-weight:1000;text-transform:uppercase;letter-spacing:.08em}.routeItem h3{font-size:25px;text-transform:uppercase;letter-spacing:-.03em;margin:52px 0 10px}.routeItem p{margin:0;line-height:1.55;color:#4f5b68}
+.pricingWrap{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:start}
+.priceMain{border:2px solid var(--ink);background:var(--acid);padding:32px;position:sticky;top:110px;box-shadow:8px 8px 0 var(--ink)}
+.priceMain .label{font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.1em}.priceMain .bigPrice{font-size:clamp(70px,8vw,120px);font-weight:1000;line-height:.85;letter-spacing:-.07em;margin:32px 0 10px}.priceMain p{line-height:1.55;margin:0 0 24px}.priceMain .cta{width:100%;box-shadow:none}
+.packages{border:2px solid var(--ink);background:#fff}.package{display:grid;grid-template-columns:1fr auto;gap:20px;padding:23px;border-bottom:2px solid var(--ink);cursor:pointer;transition:.15s}.package:last-child{border-bottom:0}.package:hover,.package.active{background:var(--sky)}.package strong{font-size:24px}.package span{font-weight:900}.package small{grid-column:1/-1;color:var(--muted);font-weight:700}
+.aboutGrid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--ink)}
+.aboutBlock{padding:34px;min-height:360px}.aboutBlock:first-child{background:var(--blue);color:#fff;border-right:2px solid var(--ink)}.aboutBlock:last-child{background:var(--orange)}.aboutBlock h3{font-size:42px;line-height:.95;letter-spacing:-.045em;text-transform:uppercase;margin:0 0 24px}.aboutBlock p{font-size:17px;line-height:1.65;margin:0;max-width:540px}
+.orderBox{display:grid;grid-template-columns:.85fr 1.15fr;border:2px solid var(--ink);background:#fff}
+.orderIntro{padding:36px;background:var(--sky);border-right:2px solid var(--ink)}.orderIntro h3{font-size:48px;line-height:.92;text-transform:uppercase;letter-spacing:-.05em;margin:0 0 18px}.orderIntro p{line-height:1.55}.summary{margin-top:34px;padding-top:20px;border-top:2px solid var(--ink);display:grid;gap:8px}.summary strong{font-size:30px}
+form{padding:36px}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}.field input,.field select,.field textarea{width:100%;border:2px solid var(--ink);background:var(--paper);padding:13px;border-radius:0;outline:none}.field textarea{min-height:110px;resize:vertical}.submit{margin-top:18px;width:100%;box-shadow:none;background:var(--blue)}.note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:12px}
+.faq{border-top:2px solid var(--ink)}.faqItem{border-bottom:2px solid var(--ink)}.faqQ{width:100%;background:transparent;border:0;display:flex;justify-content:space-between;gap:20px;text-align:left;padding:24px 0;font-size:22px;font-weight:1000;cursor:pointer}.faqA{display:none;padding:0 0 24px;max-width:800px;line-height:1.6;color:#4e5a67}.faqItem.open .faqA{display:block}.faqItem.open .faqQ span{transform:rotate(45deg)}
+footer{background:var(--ink);color:#fff;padding:46px 0 70px}.footerGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}.footerBig{font-size:clamp(44px,7vw,92px);font-weight:1000;text-transform:uppercase;letter-spacing:-.065em;line-height:.85}.footerLinks{display:flex;flex-direction:column;gap:11px;align-items:flex-start;justify-content:flex-end;font-weight:900}.copyright{grid-column:1/-1;border-top:1px solid #405065;margin-top:25px;padding-top:18px;font-size:12px;color:#a8b1bd}
+.mobileCta{display:none}
+@media(max-width:980px){
+  .links{display:none}.hero{grid-template-columns:1fr}.heroCopy{border-right:0;border-bottom:1px solid var(--ink);padding:54px 18px}.heroVisual{min-height:560px}.sectionGrid{grid-template-columns:1fr}.sectionAside{border-right:0;border-bottom:1px solid var(--ink);padding:20px 0}.sectionNo{position:static}.sectionBody{padding:48px 0}.steps{grid-template-columns:1fr}.step{border-right:0;border-bottom:2px solid var(--ink);min-height:260px}.step:last-child{border-bottom:0}.lab,.pricingWrap,.orderBox{grid-template-columns:1fr}.priceMain{position:static}.routeStory{grid-template-columns:1fr 1fr}.routeItem:nth-child(2){border-right:0}.routeItem:nth-child(-n+2){border-bottom:2px solid var(--ink)}.orderIntro{border-right:0;border-bottom:2px solid var(--ink)}
 }
-@media(max-width:620px){
- body{padding-bottom:76px}.container{width:min(100% - 22px,1160px)}.nav{height:66px}.navcta{display:none}.brand{font-size:21px}.hero{padding:36px 0 36px}.eyebrow{font-size:10px}.hero h1{font-size:51px;letter-spacing:-3px;margin:16px 0}.hero p{font-size:16px;line-height:1.55}.heroActions .btn{width:100%;text-align:center}.micro{gap:10px;font-size:12px}.productStage{min-height:410px;margin-top:2px}.blob{width:300px;height:300px}.cardShell{width:235px}.floatTag.a{left:4px;top:74px}.floatTag.b{right:4px;bottom:78px}.viewerControls{bottom:-2px}.stripGrid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}.stat{padding:16px 8px}.stat strong{font-size:22px}section{padding:62px 0}.sectionHead{margin-bottom:25px}.sectionHead h2{font-size:38px}.sectionHead p{font-size:15px}.steps,.stack,.priceGrid,.formGrid{grid-template-columns:1fr}.step{min-height:0}.featureBig{min-height:320px}.featureSmall{min-height:0}.previewPanel{min-height:410px;padding:20px}.previewCard{width:220px}.previewInfo h3{font-size:32px}.priceCard{padding:22px}.orderWrap{padding:23px;border-radius:26px}.mobileBuy{display:block;position:fixed;z-index:80;left:10px;right:10px;bottom:10px;background:rgba(11,22,48,.96);backdrop-filter:blur(12px);border-radius:18px;padding:9px;box-shadow:0 14px 40px rgba(11,22,48,.25)}.mobileBuy a{display:block;text-align:center;background:var(--lime);color:#0b1630;border-radius:13px;padding:13px;font-weight:950}.footerGrid{align-items:flex-start;flex-direction:column}.footerLinks{flex-wrap:wrap}
+@media(max-width:640px){
+  .shell{width:min(100% - 24px,1320px)}.nav{min-height:66px}.logo{font-size:22px}.logoMark{width:36px;height:36px}.navBtn{padding:10px 12px;font-size:12px;box-shadow:3px 3px 0 var(--ink)}
+  .hero{min-height:auto}.heroCopy{padding:44px 12px}.heroLead{font-size:17px}.heroMeta{gap:17px}.heroVisual{min-height:430px}.heroCardStack{padding:30px 18px 70px}.heroCard{width:94%;filter:drop-shadow(10px 12px 0 rgba(8,19,34,.9))}.sticker{font-size:10px;padding:9px 10px}.heroSideControls{right:14px;bottom:14px}.heroSideControls button{padding:9px 10px;font-size:11px}
+  .tickerTrack{font-size:14px}.tickerTrack span{padding:13px 20px}.sectionBody{padding:38px 0}.sectionTitle{font-size:48px}.sectionIntro{font-size:16px;margin-bottom:28px}.step h3{font-size:30px}.step{padding:22px;min-height:230px}
+  .lab{gap:22px}.cardStage{min-height:340px}.demoCard{width:92%}.labPanel{padding:20px}.labPanel h3{font-size:31px}.routeStory{grid-template-columns:1fr}.routeItem{border-right:0;border-bottom:2px solid var(--ink);min-height:210px}.routeItem:last-child{border-bottom:0}.routeItem:nth-child(-n+2){border-bottom:2px solid var(--ink)}
+  .pricingWrap{gap:24px}.priceMain{padding:24px}.package{padding:18px}.aboutGrid{grid-template-columns:1fr}.aboutBlock:first-child{border-right:0;border-bottom:2px solid var(--ink)}.aboutBlock{min-height:auto;padding:26px}.aboutBlock h3{font-size:35px}
+  .orderIntro,form{padding:24px}.orderIntro h3{font-size:40px}.formGrid{grid-template-columns:1fr}.field.full{grid-column:auto}.faqQ{font-size:19px}.footerGrid{grid-template-columns:1fr}.footerLinks{justify-content:flex-start}.copyright{grid-column:auto}
+  .mobileCta{display:block;position:fixed;left:12px;right:12px;bottom:12px;z-index:40}.mobileCta a{display:block;text-align:center;background:var(--acid);color:var(--ink);border:2px solid var(--ink);padding:14px;font-weight:1000;text-transform:uppercase;box-shadow:4px 4px 0 var(--ink)}
+  footer{padding-bottom:110px}
 }
+
+/* --- QRändur pack opening experience --- */
+.packExperience{background:#09111f;color:#fff}
+.packExperience .sectionAside{border-color:rgba(255,255,255,.28)}
+.packExperience .sectionIntro{color:#b9c7d8}
+.packArena{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:44px;align-items:center}
+.packShowcase{position:relative;min-height:620px;border:2px solid rgba(255,255,255,.75);overflow:hidden;background:radial-gradient(circle at 50% 30%,#153b70 0,#0d2342 34%,#09111f 72%);display:grid;place-items:center;padding:28px}
+.packShowcase:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:38px 38px;pointer-events:none}
+.packProduct{position:absolute;inset:26px;display:grid;place-items:center;transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1);z-index:2}
+.packProduct img{width:min(760px,100%);max-height:560px;object-fit:contain;filter:drop-shadow(0 26px 28px rgba(0,0,0,.48));border-radius:20px}
+.packStage{position:absolute;inset:0;display:grid;place-items:center;z-index:4;pointer-events:none}
+.foilPack{position:relative;width:min(285px,46%);aspect-ratio:.62;border-radius:18px 18px 26px 26px;overflow:hidden;box-shadow:0 28px 50px rgba(0,0,0,.55);transform:translateY(80px) scale(.88);opacity:0;transition:opacity .35s,transform .55s cubic-bezier(.2,.8,.2,1);background:#0c2a50;border:2px solid rgba(255,255,255,.72)}
+.foilPack img{position:absolute;height:100%;width:auto;max-width:none;left:0;top:0;transform:translateX(-2%);filter:saturate(1.08) contrast(1.02)}
+.foilPack:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.22) 40%,transparent 58%);transform:translateX(-120%);animation:foilShine 3.8s linear infinite}
+@keyframes foilShine{to{transform:translateX(140%)}}
+.packShowcase.ready .packProduct{opacity:.14;transform:scale(.92)}
+.packShowcase.ready .foilPack{opacity:1;transform:translateY(58px) scale(.95)}
+.packTear{position:absolute;left:50%;top:22%;width:44%;height:18px;transform:translateX(-50%) scaleX(0);background:#eef6ff;clip-path:polygon(0 45%,8% 25%,16% 58%,25% 32%,34% 60%,43% 35%,52% 58%,61% 28%,72% 62%,82% 34%,92% 58%,100% 40%,100% 100%,0 100%);z-index:9;opacity:0}
+.packShowcase.opening .packTear{animation:tearOpen .52s .22s forwards}
+@keyframes tearOpen{to{transform:translateX(-50%) scaleX(1);opacity:1}}
+.flyCard{position:absolute;width:min(330px,46%);aspect-ratio:1060/680;border-radius:16px;border:2px solid #fff;overflow:hidden;box-shadow:0 22px 44px rgba(0,0,0,.48);left:50%;top:50%;opacity:0;transform:translate(-50%,-10%) scale(.55) rotate(0deg);transition:none;background:#111}
+.flyCard img{width:100%;height:100%;object-fit:cover}
+.packShowcase.opening .flyCard.c1{animation:cardOut1 .8s .68s forwards cubic-bezier(.16,.84,.27,1)}
+.packShowcase.opening .flyCard.c2{animation:cardOut2 .82s .88s forwards cubic-bezier(.16,.84,.27,1)}
+.packShowcase.opening .flyCard.c3{animation:cardOut3 .84s 1.08s forwards cubic-bezier(.16,.84,.27,1)}
+.packShowcase.opening .foilPack{animation:packRip 1.6s .25s forwards cubic-bezier(.2,.8,.2,1)}
+@keyframes packRip{0%{transform:translateY(58px) scale(.95)}42%{transform:translateY(74px) scale(.95) rotate(-2deg)}100%{transform:translateY(160px) scale(.88) rotate(-6deg);opacity:.72}}
+@keyframes cardOut1{0%{opacity:0;transform:translate(-50%,8%) scale(.55)}45%{opacity:1}100%{opacity:1;transform:translate(-108%,-118%) scale(.92) rotate(-12deg)}}
+@keyframes cardOut2{0%{opacity:0;transform:translate(-50%,8%) scale(.55)}45%{opacity:1}100%{opacity:1;transform:translate(-50%,-138%) scale(.98) rotate(0deg)}}
+@keyframes cardOut3{0%{opacity:0;transform:translate(-50%,8%) scale(.55)}45%{opacity:1}100%{opacity:1;transform:translate(8%,-118%) scale(.92) rotate(12deg)}}
+.packInfo{border:1px solid #3b4a61;padding:30px;background:rgba(255,255,255,.03)}
+.packInfo .mini{font-size:12px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;color:#8ee7ff}
+.packInfo h3{font-size:clamp(38px,4.2vw,62px);line-height:.93;letter-spacing:-.055em;text-transform:uppercase;margin:12px 0 18px}
+.packInfo p{color:#b9c7d8;line-height:1.65;margin:0 0 22px}
+.packFacts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:24px 0}
+.packFact{border:1px solid #3b4a61;padding:14px 10px;text-align:center}
+.packFact strong{display:block;font-size:20px;color:#fff}.packFact span{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#93a2b7}
+.packOpenBtn{width:100%;border:2px solid #fff;background:var(--acid);color:var(--ink);padding:17px 18px;font-weight:1000;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;box-shadow:6px 6px 0 #315cff}
+.packOpenBtn:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 #315cff}
+.packOpenBtn:disabled{opacity:.7;cursor:default;transform:none}
+.packReset{margin-top:10px;width:100%;border:1px solid #5a687c;background:transparent;color:#fff;padding:13px 16px;font-weight:900;text-transform:uppercase;cursor:pointer}
+.packCaption{margin-top:12px;font-size:12px;color:#8292a8}
+@media(max-width:900px){.packArena{grid-template-columns:1fr}.packShowcase{min-height:520px}.packInfo{order:-1}.packFacts{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.packShowcase{min-height:430px;padding:12px}.foilPack{width:46%}.flyCard{width:52%}.packInfo{padding:22px}.packFacts{gap:5px}.packFact{padding:10px 5px}.packFact strong{font-size:16px}.packFact span{font-size:9px}@keyframes cardOut1{0%{opacity:0;transform:translate(-50%,10%) scale(.5)}45%{opacity:1}100%{opacity:1;transform:translate(-86%,-112%) scale(.78) rotate(-10deg)}}@keyframes cardOut2{0%{opacity:0;transform:translate(-50%,10%) scale(.5)}45%{opacity:1}100%{opacity:1;transform:translate(-50%,-128%) scale(.84)}}@keyframes cardOut3{0%{opacity:0;transform:translate(-50%,10%) scale(.5)}45%{opacity:1}100%{opacity:1;transform:translate(-14%,-112%) scale(.78) rotate(10deg)}}}
+@media(prefers-reduced-motion:reduce){.packProduct,.foilPack,.flyCard,.packTear{animation:none!important;transition:none!important}.packShowcase.opening .flyCard{opacity:1}.packShowcase.opening .flyCard.c1{transform:translate(-102%,-112%) scale(.9) rotate(-10deg)}.packShowcase.opening .flyCard.c2{transform:translate(-50%,-132%) scale(.95)}.packShowcase.opening .flyCard.c3{transform:translate(2%,-112%) scale(.9) rotate(10deg)}}
+
 </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="container nav">
-    <a class="brand" href="#top"><span class="brandmark"></span><span>QRändurid</span></a>
-    <nav class="navlinks"><a href="#kuidas">Kuidas mäng käib</a><a href="#kaart">Kaart</a><a href="#hinnad">Hinnad</a><a href="#kkk">KKK</a></nav>
-    <a class="navcta" href="#telli">Telli kaardid</a>
+<div class="topnote"><div class="marquee"><span>Õpilasfirma 2026/27 · Tallinn · QR + GPS · päris linn, päris seiklus</span><span>Õpilasfirma 2026/27 · Tallinn · QR + GPS · päris linn, päris seiklus</span></div></div>
+<header>
+  <div class="shell nav">
+    <a class="logo" href="#top"><span class="logoMark"></span><span>QRändur</span></a>
+    <nav class="links"><a href="#kuidas">Kuidas töötab</a><a href="#proovi">Kaart</a><a href="#hinnad">Hinnad</a><a href="#meist">Meist</a></nav>
+    <a class="navBtn" href="#telli">Telli</a>
   </div>
 </header>
 <main id="top">
 <section class="hero">
-  <div class="container heroGrid">
-    <div>
-      <div class="eyebrow"><span class="eyedot"></span> Tallinna avastusmäng päriselus</div>
-      <h1>Skanni. Avasta. <span class="gradientText">Kogu Tallinn.</span></h1>
-      <p>QRändurid ühendab päris mängukaardi, QR-koodi ja Tallinna asukohad üheks lihtsaks seikluseks. Leia kaart, skanni kood, jõua õigesse kohta ja kogu XP-d.</p>
-      <div class="heroActions"><a class="btn" href="#hinnad">Vaata hindu</a><a class="btn secondary" href="#kuidas">Kuidas see töötab?</a></div>
-      <div class="micro"><span><i class="check">✓</i> Telefoniga mängitav</span><span><i class="check">✓</i> QR + GPS</span><span><i class="check">✓</i> Füüsilised kogumiskaardid</span></div>
-    </div>
-    <div class="productStage" aria-label="QRänduri kaardi näidis">
-      <div class="blob"></div>
-      <div class="floatTag a">📍 Päris Tallinna kohad</div>
-      <div class="floatTag b">⚡ Kogu XP-d</div>
-      <div class="cardShell" id="heroCard"><img id="heroCardImg" src="front.jpg" alt="QRänduri kaardi esikülg"></div>
-      <div class="viewerControls"><button class="active" data-side="front">Esikülg</button><button data-side="back">Tagakülg</button></div>
-    </div>
+  <div class="heroCopy">
+    <div class="eyebrow">Tallinna QR-seiklus</div>
+    <h1>Linn ei ole taust.<em>See on mängulaud.</em></h1>
+    <p class="heroLead">QRändur ühendab füüsilise kaardi, QR-koodi ja GPS-i. Skanni, leia päris koht, jõua kohale ja kogu XP-d.</p>
+    <div class="heroActions"><a class="cta" href="#proovi">Vaata kaarti</a><a class="cta alt" href="#kuidas">Kuidas mäng käib?</a></div>
+    <div class="heroMeta"><div><strong>QR + GPS</strong><span>päris maailmas</span></div><div><strong>XP</strong><span>kohale jõudes</span></div><div><strong>2026/27</strong><span>õpilasfirma</span></div></div>
+  </div>
+  <div class="heroVisual">
+    <div class="heroPattern"></div>
+    <div class="route"><svg viewBox="0 0 600 700" preserveAspectRatio="none" aria-hidden="true"><path d="M-40 140 C 120 40, 180 260, 340 190 S 500 270, 650 110" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="8" stroke-dasharray="18 16"/><path d="M-60 530 C 110 430, 180 650, 360 530 S 510 420, 660 570" fill="none" stroke="rgba(217,255,87,.9)" stroke-width="7"/></svg></div>
+    <div class="heroCardStack"><div class="heroCard"><img id="heroImg" src="front.jpg" alt="QRänduri kaardi esikülg"></div></div>
+    <div class="sticker one">Skanni → mine</div><div class="sticker two">Tallinn / 2026</div>
+    <div class="heroSideControls"><button class="active" data-side="front">Ees</button><button data-side="back">Taga</button></div>
   </div>
 </section>
-<div class="strip"><div class="container stripGrid"><div class="stat"><strong>QR</strong><span>skannimine</span></div><div class="stat"><strong>GPS</strong><span>asukoha kontroll</span></div><div class="stat"><strong>XP</strong><span>mänguline progress</span></div><div class="stat"><strong>3+</strong><span>esimest sihtkohta</span></div></div></div>
-<section id="kuidas" class="how">
-  <div class="container">
-    <div class="sectionHead"><div class="kicker">Kuidas mäng töötab</div><h2>Neli lihtsat sammu. Üks päris seiklus.</h2><p>Mäng algab füüsilisest kaardist ja viib sind päriselt Tallinna avastama.</p></div>
-    <div class="steps">
-      <article class="step"><div class="stepNum">01</div><h3>Leia kaart</h3><p>Võta endale QRänduri kaart. Igal kaardil on oma koht, rarity ja QR-kood.</p></article>
-      <article class="step"><div class="stepNum">02</div><h3>Skanni QR</h3><p>Skanni kaardil olev kood telefoniga. Koht avaneb sinu mängus ja saad teada, kuhu minna.</p></article>
-      <article class="step"><div class="stepNum">03</div><h3>Mine kohale</h3><p>Liigu õigesse Tallinna asukohta. Mäng kontrollib GPS-i abil, kas oled piisavalt lähedal.</p></article>
-      <article class="step"><div class="stepNum">04</div><h3>Kogu XP</h3><p>Kui asukoht on kinnitatud, saad XP-d ja saad oma kollektsiooni edasi kasvatada.</p></article>
-    </div>
-  </div>
-</section>
-<section class="features">
-  <div class="container">
-    <div class="sectionHead"><div class="kicker">Miks QRändurid?</div><h2>See pole lihtsalt kaart. See on põhjus välja minna.</h2><p>QRändurid muudab tavalise linnas liikumise kogumiseks, avastamiseks ja võistlemiseks.</p></div>
-    <div class="featureGrid">
-      <div class="featureBig"><div class="iconbox">🗺️</div><h3>Avasta Tallinnat mängu kaudu</h3><p>Kaardid annavad konkreetse sihi. Selle asemel, et lihtsalt ekraanil mängida, pead päriselt kohale minema ja linna avastama.</p></div>
-      <div class="stack"><div class="featureSmall"><div class="iconbox">🎴</div><h3>Kogu kaarte</h3><p>Rare, Epic ja Legendary kaardid teevad kollektsiooni põnevamaks.</p></div><div class="featureSmall"><div class="iconbox">🏆</div><h3>Kogu XP-d</h3><p>Asukohta jõudmine annab punkte ja loob võistlusmomendi.</p></div></div>
+<div class="ticker"><div class="tickerTrack"><span>✦ SKANNI KAART</span><span>✦ LEIA KOHT</span><span>✦ GPS KINNITAB</span><span>✦ KOGU XP</span><span>✦ AVASTA TALLINNA</span><span>✦ SKANNI KAART</span><span>✦ LEIA KOHT</span><span>✦ GPS KINNITAB</span><span>✦ KOGU XP</span><span>✦ AVASTA TALLINNA</span></div></div>
+
+<section id="kuidas" class="section">
+  <div class="shell sectionGrid">
+    <aside class="sectionAside"><div class="sectionNo">01 / Kuidas see töötab</div></aside>
+    <div class="sectionBody"><h2 class="sectionTitle">Kolm sammu.<br>Null igavust.</h2><p class="sectionIntro">QRändur ei hoia sind ekraani küljes. Telefon on ainult värav — päris mäng toimub linnas.</p>
+      <div class="steps">
+        <article class="step"><div><div class="stepNum">01</div><div class="stepIcon">▣</div></div><div><h3>Skanni kaart</h3><p>QR-kood avab kaardi ja näitab, millist Tallinna kohta hakkad otsima.</p></div></article>
+        <article class="step"><div><div class="stepNum">02</div><div class="stepIcon">⌖</div></div><div><h3>Mine kohale</h3><p>Liigu päris asukohta. Mäng kontrollib GPS-i abil, kas oled õiges kohas.</p></div></article>
+        <article class="step"><div><div class="stepNum">03</div><div class="stepIcon">✦</div></div><div><h3>Kogu XP</h3><p>Kohale jõudes saad XP-d ja kasvatad oma kollektsiooni ning taset.</p></div></article>
+      </div>
     </div>
   </div>
 </section>
-<section id="kaart">
-  <div class="container showcase">
-    <div class="previewPanel"><div class="previewCard"><img id="showcaseImg" src="front.jpg" alt="QRänduri kaart"></div></div>
-    <div class="previewInfo"><div class="kicker">Kaart päriselus</div><h3>Kaks külge. Üks seiklus.</h3><p>Esikülg annab kaardile oma identiteedi ja rarity. Tagaküljel olev QR-kood ühendab füüsilise kaardi digitaalse mänguga.</p><div class="bullets"><div class="bullet"><i>1</i><span>Vajuta allolevaid nuppe ja vaata päris kaardi mõlemat külge.</span></div><div class="bullet"><i>2</i><span>QR-kood juhatab mängija täpselt tema järgmise sihtkohani.</span></div><div class="bullet"><i>3</i><span>Kaardid on loodud kogumiseks, vahetamiseks ja mängimiseks.</span></div></div><div class="heroActions" style="margin-top:24px"><button class="btn" id="frontBtn">Näita esikülge</button><button class="btn secondary" id="backBtn">Näita tagakülge</button></div></div>
-  </div>
-</section>
-<section id="hinnad" class="pricing">
-  <div class="container">
-    <div class="sectionHead"><div class="kicker">Hinnad</div><h2>Alusta ühest kaardist või võta terve komplekt.</h2><p>Suurema koguse puhul läheb ühe kaardi hind soodsamaks.</p></div>
-    <div class="priceGrid" id="priceGrid">
-      <article class="priceCard" data-qty="1" data-price="2.49"><div class="qty">1 kaart</div><div class="price">2,49 €</div><div class="unit">2,49 € / tk</div><ul><li>Hea proovimiseks</li><li>1 füüsiline kaart</li></ul></article>
-      <article class="priceCard" data-qty="5" data-price="10.99"><div class="qty">5 kaarti</div><div class="price">10,99 €</div><div class="unit">2,20 € / tk</div><ul><li>Väike komplekt</li><li>Sobib sõpradega jagamiseks</li></ul></article>
-      <article class="priceCard popular" data-qty="10" data-price="19.99"><div class="badge">Populaarne</div><div class="qty">10 kaarti</div><div class="price">19,99 €</div><div class="unit">2,00 € / tk</div><ul><li>Parim alustamiseks</li><li>Hea hinna ja koguse suhe</li></ul></article>
-      <article class="priceCard" data-qty="25" data-price="44.99"><div class="qty">25 kaarti</div><div class="price">44,99 €</div><div class="unit">1,80 € / tk</div><ul><li>Üritustele</li><li>Suurem kollektsioon</li></ul></article>
-      <article class="priceCard" data-qty="50" data-price="79.99"><div class="qty">50 kaarti</div><div class="price">79,99 €</div><div class="unit">1,60 € / tk</div><ul><li>Klassile või grupile</li><li>Soodsam tüki hind</li></ul></article>
-      <article class="priceCard" data-qty="100" data-price="139.99"><div class="qty">100 kaarti</div><div class="price">139,99 €</div><div class="unit">1,40 € / tk</div><ul><li>Suur tellimus</li><li>Kõige parem tüki hind</li></ul></article>
+
+<section id="proovi" class="section trySection">
+  <div class="shell sectionGrid">
+    <aside class="sectionAside"><div class="sectionNo">02 / Kaart käes</div></aside>
+    <div class="sectionBody"><h2 class="sectionTitle">Üks kaart.<br>Kaks külge.<br>Terve seiklus.</h2><p class="sectionIntro">Vaheta esi- ja tagakülje vahel. Need on päris QRänduri kaardikujundused, mitte illustratsioonid.</p>
+      <div class="lab"><div class="cardStage"><div class="demoCard" id="demoCard"><img id="demoImg" src="front.jpg" alt="QRänduri kaart"></div></div><div class="labPanel"><h3>Proovi ise</h3><p>Esikülg annab kaardile identiteedi. Tagakülg viib QR-koodi kaudu digitaalsesse mängu.</p><div class="toggle"><button class="active" data-demo="front">Esikülg</button><button data-demo="back">Tagakülg</button></div></div></div>
     </div>
   </div>
 </section>
-<section id="telli">
-  <div class="container orderWrap">
-    <div><div class="kicker" style="color:var(--lime)">Tellimine</div><h2 style="font-size:42px;letter-spacing:-1.8px;margin:10px 0">Vali kogus ja jäta kontakt.</h2><p>See vorm on praegu tellimuse demo. Hiljem saab selle ühendada e-posti, makselahenduse või päris e-poe süsteemiga.</p><div class="orderSummary"><span>Valitud kogus</span><strong id="selectedQty">10 kaarti</strong><span id="selectedPrice">19,99 €</span></div></div>
-    <form id="orderForm"><div class="formGrid"><div class="field"><label>Nimi</label><input required placeholder="Sinu nimi"></div><div class="field"><label>E-post</label><input type="email" required placeholder="nimi@email.ee"></div><div class="field"><label>Kogus</label><select id="qtySelect"><option value="1">1 kaart</option><option value="5">5 kaarti</option><option value="10" selected>10 kaarti</option><option value="25">25 kaarti</option><option value="50">50 kaarti</option><option value="100">100 kaarti</option></select></div><div class="field"><label>Telefon (valikuline)</label><input placeholder="+372 ..."></div><div class="field full"><label>Lisainfo</label><textarea placeholder="Kirjuta siia küsimus või soov..."></textarea></div></div><button class="btn submit" type="submit">Saada tellimus</button><div class="formNote" id="formNote">Tellimust ei saadeta veel päriselt — see on veebilehe demo.</div></form>
+
+
+<section id="pakk" class="section packExperience">
+  <div class="shell sectionGrid">
+    <aside class="sectionAside"><div class="sectionNo">03 / Ava pakk</div></aside>
+    <div class="sectionBody">
+      <h2 class="sectionTitle">Rebi lahti.<br>Vaata, mis tuli.</h2>
+      <p class="sectionIntro">QRänduri kaardid võivad tulla päris kogumiskaartide paki moodi. Vajuta nuppu ja vaata, kuidas pakk avaneb ning kaardid sealt välja lendavad.</p>
+      <div class="packArena">
+        <div class="packShowcase" id="packShowcase" aria-live="polite">
+          <div class="packProduct"><img src="pack.png" alt="QRänduri kaardipaki tootenäidis"></div>
+          <div class="packStage">
+            <div class="foilPack" aria-hidden="true"><img src="pack.png" alt=""></div>
+            <div class="packTear" aria-hidden="true"></div>
+            <div class="flyCard c1"><img src="back.jpg" alt="QRänduri kaardi tagakülg"></div>
+            <div class="flyCard c2"><img src="front.jpg" alt="QRänduri kaardi esikülg"></div>
+            <div class="flyCard c3"><img src="back.jpg" alt="QRänduri kaardi tagakülg"></div>
+          </div>
+        </div>
+        <div class="packInfo">
+          <div class="mini">Kogumiskaardi pakk</div>
+          <h3>Mis on paki sees?</h3>
+          <p>Ühes pakis on mitu QRänduri füüsilist kaarti. Iga kaart viib erineva seikluse, koha või QR-vihjeni. Paki avamine ise võiks olla osa kogemusest.</p>
+          <div class="packFacts">
+            <div class="packFact"><strong>10</strong><span>kaarti</span></div>
+            <div class="packFact"><strong>QR</strong><span>seiklused</span></div>
+            <div class="packFact"><strong>GPS</strong><span>kohad</span></div>
+          </div>
+          <button type="button" class="packOpenBtn" id="packOpenBtn">Ava pakk</button>
+          <button type="button" class="packReset" id="packResetBtn" hidden>Ava uuesti</button>
+          <div class="packCaption" id="packStatus">Pakk on suletud.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-<section id="kkk" class="faq">
-  <div class="container"><div class="sectionHead"><div class="kicker">KKK</div><h2>Küsimused, mis tavaliselt tekivad.</h2></div><div class="faqList">
-    <div class="faqItem open"><button class="faqQ">Kas mängimiseks on vaja eraldi äppi?<span>+</span></button><div class="faqA">Mäng avaneb telefonis veebirakendusena. QR-koodi skannides saad liikuda otse mängu.</div></div>
-    <div class="faqItem"><button class="faqQ">Kuidas XP-d saab?<span>+</span></button><div class="faqA">QR-kood avab koha, kuid XP saad alles siis, kui jõuad GPS-i järgi õigesse asukohta.</div></div>
-    <div class="faqItem"><button class="faqQ">Kas kaarte saab koguda?<span>+</span></button><div class="faqA">Jah. Kaartidel on erinev rarity ning idee ongi luua päris füüsiline kollektsioon, mida saab täiendada.</div></div>
-    <div class="faqItem"><button class="faqQ">Kas suuremale tellimusele saab erihinna?<span>+</span></button><div class="faqA">Jah. Veebis on põhipaketid, kuid suurema tellimuse puhul saab hinna eraldi kokku leppida.</div></div>
-  </div></div>
+
+<section class="section">
+  <div class="shell sectionGrid">
+    <aside class="sectionAside"><div class="sectionNo">04 / Linnast saab rada</div></aside>
+    <div class="sectionBody"><h2 class="sectionTitle">Telefon taskusse.<br>Jalad tööle.</h2><p class="sectionIntro">Mängu mõte on panna päris linn liikuma. Iga kaart loob väikese eesmärgi ja iga kohalejõudmine annab päris saavutuse tunde.</p>
+      <div class="routeStory"><article class="routeItem"><small>Start</small><h3>Kaart sinu käes</h3><p>Füüsiline ese annab mängule kogutava ja vahetatava osa.</p></article><article class="routeItem"><small>QR</small><h3>Digitaalne vihje</h3><p>Skann avab info ja järgmise sihi ilma eraldi rakendust installimata.</p></article><article class="routeItem"><small>GPS</small><h3>Päris asukoht</h3><p>Asukoht loeb. Mäng tunnustab alles siis, kui oled päriselt kohale jõudnud.</p></article><article class="routeItem"><small>XP</small><h3>Progress</h3><p>Kogutud XP loob põhjuse proovida veel üht kohta ja veel üht kaarti.</p></article></div>
+    </div>
+  </div>
+</section>
+
+<section id="hinnad" class="section">
+  <div class="shell sectionGrid">
+    <aside class="sectionAside"><div class="sectionNo">05 / Hinnad</div></aside>
+    <div class="sectionBody"><h2 class="sectionTitle">Võta üks.<br>Või terve hunnik.</h2><p class="sectionIntro">Õpilasfirma jaoks lihtsad paketid. Suurema koguse puhul langeb ühe kaardi hind.</p>
+      <div class="pricingWrap"><div class="priceMain"><div class="label">Valitud pakett</div><div class="bigPrice" id="bigPrice">18 €</div><p id="bigDesc">10 kaarti · 1,80 € / tk · hea alustamiseks sõpradega.</p><a class="cta" href="#telli">Vali ja telli</a></div>
+        <div class="packages" id="packages"><div class="package" data-qty="1" data-price="2.50" data-desc="1 kaart · 2,50 € / tk · proovimiseks."><strong>1 kaart</strong><span>2,50 €</span><small>Proovi QRändurit ühe kaardiga.</small></div><div class="package" data-qty="5" data-price="10" data-desc="5 kaarti · 2,00 € / tk · väike komplekt."><strong>5 kaarti</strong><span>10 €</span><small>Hea väike pakk sõbrale või endale.</small></div><div class="package active" data-qty="10" data-price="18" data-desc="10 kaarti · 1,80 € / tk · hea alustamiseks sõpradega."><strong>10 kaarti</strong><span>18 €</span><small>Meie soovitus alustamiseks.</small></div><div class="package" data-qty="25" data-price="40" data-desc="25 kaarti · 1,60 € / tk · suurem kollektsioon."><strong>25 kaarti</strong><span>40 €</span><small>Rohkem kohti, rohkem mängu.</small></div><div class="package" data-qty="50" data-price="75" data-desc="50 kaarti · 1,50 € / tk · grupile või klassile."><strong>50 kaarti</strong><span>75 €</span><small>Sobib suuremale seltskonnale.</small></div><div class="package" data-qty="100" data-price="135" data-desc="100 kaarti · 1,35 € / tk · suur tellimus."><strong>100 kaarti</strong><span>135 €</span><small>Kõige madalam tüki hind.</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="meist" class="section">
+  <div class="shell sectionGrid">
+    <aside class="sectionAside"><div class="sectionNo">06 / Kes me oleme</div></aside>
+    <div class="sectionBody"><h2 class="sectionTitle">Õpilasfirma.<br>Päris idee.</h2><div class="aboutGrid"><div class="aboutBlock"><h3>Miks QRändur?</h3><p>Tahtsime teha midagi, mis ühendaks telefoni ja päris maailma nii, et telefon ei oleks ise kogu mäng. QRändur annab põhjuse liikuda, avastada ja koguda.</p></div><div class="aboutBlock"><h3>Tallinnast alustame.</h3><p>Esimesed seiklused on loodud Tallinna jaoks. Idee on lihtne: tuttavad ja tundmatud kohad muutuvad eesmärkideks, mida saab päriselt läbida.</p></div></div></div>
+  </div>
+</section>
+
+<section id="telli" class="section">
+  <div class="shell sectionGrid">
+    <aside class="sectionAside"><div class="sectionNo">07 / Tellimine</div></aside>
+    <div class="sectionBody"><h2 class="sectionTitle">Valmis linna<br>mängima?</h2><div class="orderBox"><div class="orderIntro"><h3>Telli QRänduri kaardid</h3><p>Vali kogus ja jäta kontakt. Praegu on vorm kujunduslik demo; päris saatmise ühendame järgmise sammuna e-posti või tellimussüsteemiga.</p><div class="summary"><span>Valitud</span><strong id="orderQty">10 kaarti</strong><span id="orderPrice">18 €</span></div></div><form id="orderForm"><div class="formGrid"><div class="field"><label>Nimi</label><input required placeholder="Sinu nimi"></div><div class="field"><label>E-post</label><input type="email" required placeholder="nimi@email.ee"></div><div class="field"><label>Kogus</label><select id="qtySelect"><option value="1">1 kaart</option><option value="5">5 kaarti</option><option value="10" selected>10 kaarti</option><option value="25">25 kaarti</option><option value="50">50 kaarti</option><option value="100">100 kaarti</option></select></div><div class="field"><label>Telefon</label><input placeholder="+372 ..."></div><div class="field full"><label>Lisainfo</label><textarea placeholder="Kirjuta siia küsimus või soov..."></textarea></div></div><button class="cta submit" type="submit">Koosta tellimus</button><div class="note" id="formNote">Päris saatmine vajab veel e-posti või backend-ühendust.</div></form></div>
+      <div class="faq"><div class="faqItem open"><button class="faqQ">Kas eraldi äppi on vaja?<span>+</span></button><div class="faqA">Ei pea. QR-kood saab avada mängu otse telefonis veebirakendusena.</div></div><div class="faqItem"><button class="faqQ">Millal XP saadakse?<span>+</span></button><div class="faqA">QR-kood avab koha, aga XP tuleb alles siis, kui GPS kinnitab, et oled õigesse kohta jõudnud.</div></div><div class="faqItem"><button class="faqQ">Kas kaarte saab koguda?<span>+</span></button><div class="faqA">Jah. Füüsiline kaart ongi osa kollektsioonist ja erinevaid kaarte saab juurde koguda.</div></div></div>
+    </div>
+  </div>
 </section>
 </main>
-<footer><div class="container footerGrid"><div class="brand"><span class="brandmark"></span><span>QRändurid</span></div><div class="footerLinks"><a href="#kuidas">Mäng</a><a href="#hinnad">Hinnad</a><a href="#telli">Tellimine</a></div><div>© 2026 QRändurid</div></div></footer>
-<div class="mobileBuy"><a href="#telli">Telli kaardid</a></div>
+<footer><div class="shell footerGrid"><div class="footerBig">QRändur.<br>Linn on mängulaud.</div><div class="footerLinks"><a href="#kuidas">Kuidas töötab</a><a href="#proovi">Kaart</a><a href="#hinnad">Hinnad</a><a href="#telli">Tellimine</a></div><div class="copyright">© 2026 QRändur · Õpilasfirma · Tallinn, Eesti</div></div></footer>
+<div class="mobileCta"><a href="#telli">Telli kaardid</a></div>
 <script>
-const heroImg=document.getElementById('heroCardImg');
-const heroShell=document.getElementById('heroCard');
-const viewerButtons=[...document.querySelectorAll('.viewerControls button')];
-function setHeroSide(side){heroShell.classList.add('switching');setTimeout(()=>{heroImg.src=side==='front'?'front.jpg':'back.jpg';heroImg.alt=side==='front'?'QRänduri kaardi esikülg':'QRänduri kaardi tagakülg';heroShell.classList.remove('switching');viewerButtons.forEach(b=>b.classList.toggle('active',b.dataset.side===side));},140)}
-viewerButtons.forEach(b=>b.addEventListener('click',()=>setHeroSide(b.dataset.side)));
-const show=document.getElementById('showcaseImg');
-function setShowcase(side){show.style.opacity='.15';show.style.transform='scale(.97)';setTimeout(()=>{show.src=side==='front'?'front.jpg':'back.jpg';show.alt=side==='front'?'QRänduri kaardi esikülg':'QRänduri kaardi tagakülg';show.style.opacity='1';show.style.transform='scale(1)'},140)}
-show.style.transition='opacity .18s,transform .18s';
-document.getElementById('frontBtn').onclick=()=>setShowcase('front');document.getElementById('backBtn').onclick=()=>setShowcase('back');
-const prices={1:'2,49 €',5:'10,99 €',10:'19,99 €',25:'44,99 €',50:'79,99 €',100:'139,99 €'};
+const heroImg=document.getElementById('heroImg');
+const heroBtns=[...document.querySelectorAll('.heroSideControls button')];
+function setHero(side){heroImg.style.opacity='.2';heroImg.style.transform='scale(.96)';setTimeout(()=>{heroImg.src=side==='front'?'front.jpg':'back.jpg';heroImg.alt=side==='front'?'QRänduri kaardi esikülg':'QRänduri kaardi tagakülg';heroImg.style.opacity='1';heroImg.style.transform='scale(1)';heroBtns.forEach(b=>b.classList.toggle('active',b.dataset.side===side));},130)}
+heroImg.style.transition='opacity .18s,transform .18s';heroBtns.forEach(b=>b.addEventListener('click',()=>setHero(b.dataset.side)));
+
+const demoCard=document.getElementById('demoCard'), demoImg=document.getElementById('demoImg');
+const demoBtns=[...document.querySelectorAll('[data-demo]')];
+function setDemo(side){demoCard.classList.add('switching');setTimeout(()=>{demoImg.src=side==='front'?'front.jpg':'back.jpg';demoImg.alt=side==='front'?'QRänduri kaardi esikülg':'QRänduri kaardi tagakülg';demoCard.classList.remove('switching');demoBtns.forEach(b=>b.classList.toggle('active',b.dataset.demo===side));},180)}
+demoBtns.forEach(b=>b.addEventListener('click',()=>setDemo(b.dataset.demo)));
+
+const priceMap={1:'2,50 €',5:'10 €',10:'18 €',25:'40 €',50:'75 €',100:'135 €'};
+const descMap={1:'1 kaart · 2,50 € / tk · proovimiseks.',5:'5 kaarti · 2,00 € / tk · väike komplekt.',10:'10 kaarti · 1,80 € / tk · hea alustamiseks sõpradega.',25:'25 kaarti · 1,60 € / tk · suurem kollektsioon.',50:'50 kaarti · 1,50 € / tk · grupile või klassile.',100:'100 kaarti · 1,35 € / tk · suur tellimus.'};
 const qtySelect=document.getElementById('qtySelect');
-function setOrder(q){q=String(q);qtySelect.value=q;document.getElementById('selectedQty').textContent=q+(q==='1'?' kaart':' kaarti');document.getElementById('selectedPrice').textContent=prices[q]||'';document.getElementById('telli').scrollIntoView({behavior:'smooth'});}
-document.querySelectorAll('.priceCard').forEach(c=>c.addEventListener('click',()=>setOrder(c.dataset.qty)));
-qtySelect.addEventListener('change',()=>{const q=qtySelect.value;document.getElementById('selectedQty').textContent=q+(q==='1'?' kaart':' kaarti');document.getElementById('selectedPrice').textContent=prices[q]||''});
+function chooseQty(q,scroll=false){q=String(q);document.querySelectorAll('.package').forEach(p=>p.classList.toggle('active',p.dataset.qty===q));document.getElementById('bigPrice').textContent=priceMap[q];document.getElementById('bigDesc').textContent=descMap[q];document.getElementById('orderQty').textContent=q+(q==='1'?' kaart':' kaarti');document.getElementById('orderPrice').textContent=priceMap[q];qtySelect.value=q;if(scroll)document.getElementById('telli').scrollIntoView({behavior:'smooth'});}
+document.querySelectorAll('.package').forEach(p=>p.addEventListener('click',()=>chooseQty(p.dataset.qty)));
+qtySelect.addEventListener('change',()=>chooseQty(qtySelect.value));
+
 document.querySelectorAll('.faqQ').forEach(q=>q.addEventListener('click',()=>q.parentElement.classList.toggle('open')));
-document.getElementById('orderForm').addEventListener('submit',e=>{e.preventDefault();document.getElementById('formNote').textContent='✓ Vorm töötab. Päris tellimuste saatmiseks ühendame selle hiljem e-posti või maksesüsteemiga.';});
+document.getElementById('orderForm').addEventListener('submit',e=>{e.preventDefault();document.getElementById('formNote').textContent='✓ Vorm on kujunduslikult valmis. Järgmise sammuna saame ühendada selle päris e-posti või tellimussüsteemiga.';});
+
+
+const packShowcase=document.getElementById('packShowcase');
+const packOpenBtn=document.getElementById('packOpenBtn');
+const packResetBtn=document.getElementById('packResetBtn');
+const packStatus=document.getElementById('packStatus');
+let packTimer=null;
+function preparePack(){
+  if(packTimer) clearTimeout(packTimer);
+  packShowcase.classList.remove('opening');
+  packShowcase.classList.add('ready');
+  packOpenBtn.disabled=false;
+  packOpenBtn.textContent='Ava pakk';
+  packResetBtn.hidden=true;
+  packStatus.textContent='Pakk on suletud.';
+}
+function openPack(){
+  packShowcase.classList.add('ready');
+  void packShowcase.offsetWidth;
+  packShowcase.classList.add('opening');
+  packOpenBtn.disabled=true;
+  packOpenBtn.textContent='Pakk avaneb…';
+  packStatus.textContent='Pakk avaneb ja kaardid tulevad välja…';
+  packTimer=setTimeout(()=>{
+    packOpenBtn.textContent='Pakk avatud';
+    packResetBtn.hidden=false;
+    packStatus.textContent='Kaardid on väljas. Ava uuesti, et animatsiooni korrata.';
+  },2100);
+}
+packOpenBtn.addEventListener('click',openPack);
+packResetBtn.addEventListener('click',()=>{preparePack();setTimeout(openPack,220)});
+preparePack();
+
 </script>
 </body>
 </html>
